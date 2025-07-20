@@ -1,4 +1,4 @@
-const apiKey = "99f0222b78a735aebdf7e104bd6f2dd4"; //removed because I dont want to use any
+const apiKey = "99f0222b78a735aebdf7e104bd6f2dd4";
 const baseUrl = "https://api.themoviedb.org/3";
 const allData = baseUrl + "/trending/all/day";
 const url = `${allData}?sort_by=popularity.desc&api_key=${apiKey}`;
