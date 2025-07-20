@@ -1,0 +1,1 @@
+Movie Explorer is my first big project—a simple web app that lets users search, sort, and explore trending, upcoming, and top-rated movies and shows with official trailers. I built it without any MVC frameworks, focusing on vanilla JavaScript to better understand DOM manipulation and core concepts.
