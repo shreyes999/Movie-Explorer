@@ -59,7 +59,7 @@ function getPagedUrl(page) {
 
 function cardMovies(page = 1) {
   const fetchUrl = getPagedUrl(page);
-  mainOne.innerHTML = "";
+  mainOne.textContent = "";
   fetch(fetchUrl)
     .then((res) => {
       if (!res.ok) throw new Error("Could not fetch resource");
@@ -68,7 +68,7 @@ function cardMovies(page = 1) {
     .then((data) => {
       totalPages = data.total_pages;
 
-      head.innerHTML = "Now Playing";
+      head.textContent = "Now Playing";
       head.className = "section-heading h2";
       data.results.forEach((element) => {
         cardlayout(element);
@@ -78,7 +78,7 @@ function cardMovies(page = 1) {
     })
     .catch((err) => {
       console.error(err);
-      mainOne.innerHTML = `<p>Error loading movies.</p>`;
+      mainOne.textContent = `<p>Error loading movies.</p>`;
     });
 }
 
@@ -122,8 +122,8 @@ function searchid(sid) {
 }
 
 function search(searchName) {
-  carousel.innerHTML = "";
-  mainOne.innerHTML = "";
+  carousel.textContent = "";
+  mainOne.textContent = "";
 
   fetch(getPagedUrl(currentPage))
     .then((res) => {
@@ -135,25 +135,25 @@ function search(searchName) {
       const head = document.getElementById("head");
       if (data.total_results > 0) {
         if (head) {
-          head.innerHTML =
+          head.textContent =
             "Results for: " + document.getElementById("search").value;
           head.className = "section-heading h2";
           head.style.textAlign = "";
         }
       } else {
         if (head) {
-          head.innerHTML = "No Result";
+          head.textContent = "No Result";
           head.style.textAlign = "center";
         }
       }
-      mainOne.innerHTML = "";
+      mainOne.textContent = "";
       data.results.forEach((element) => {
         cardlayout(element);
       });
       updatePageDisplay();
     })
     .catch((error) => {
-      mainOne.innerHTML = `<p>Error loading search results.</p>`;
+      mainOne.textContent = `<p>Error loading search results.</p>`;
       console.error(error);
     });
 }
@@ -162,27 +162,27 @@ function check(id) {
   let type = "";
   if (id === "mPopular") {
     type = `${baseUrl}/movie/popular?language=en-US&api_key=${apiKey}`;
-    head.innerHTML = "Popular Movies";
+    head.textContent = "Popular Movies";
     head.className = "section-heading h2";
   } else if (id === "mNow_playing") {
     type = `${baseUrl}/movie/upcoming?language=en-US&api_key=${apiKey}`;
-    head.innerHTML = "Upcoming Movies";
+    head.textContent = "Upcoming Movies";
     head.className = "section-heading h2";
   } else if (id === "mTop_rated") {
     type = `${baseUrl}/movie/top_rated?language=en-US&api_key=${apiKey}`;
-    head.innerHTML = "Top Rated Movies";
+    head.textContent = "Top Rated Movies";
     head.className = "section-heading h2";
   } else if (id === "sPopular") {
     type = `${baseUrl}/tv/popular?language=en-US&api_key=${apiKey}`;
-    head.innerHTML = "Popular TV Shows";
+    head.textContent = "Popular TV Shows";
     head.className = "section-heading h2";
   } else if (id === "sOn_tv") {
     type = `${baseUrl}/tv/on_the_air?language=en-US&api_key=${apiKey}`;
-    head.innerHTML = "On the Air TV Shows";
+    head.textContent = "On the Air TV Shows";
     head.className = "section-heading h2";
   } else if (id === "sTop_rated") {
     type = `${baseUrl}/tv/top_rated?language=en-US&api_key=${apiKey}`;
-    head.innerHTML = "Top Rated TV Shows";
+    head.textContent = "Top Rated TV Shows";
     head.className = "section-heading h2";
   } else {
     console.error("Invalid category id:", id);
@@ -213,21 +213,21 @@ function fetchUpcomingMovies(page = 1, accumulated = []) {
       if (accumulated.length < totalNeeded && page < totalPages) {
         fetchUpcomingMovies(page + 1, accumulated);
       } else {
-        mainOne.innerHTML = "";
+        mainOne.textContent = "";
         accumulated.slice(0, totalNeeded).forEach(cardlayout);
         updatePageDisplay();
       }
     })
     .catch((err) => {
       console.error(err);
-      mainOne.innerHTML = `<p>Error loading upcoming movies.</p>`;
+      mainOne.textContent = `<p>Error loading upcoming movies.</p>`;
     });
 }
 function sorted(type) {
   lastUrl = type;
   currentPage = 1;
-  carousel.innerHTML = "";
-  mainOne.innerHTML = "";
+  carousel.textContent = "";
+  mainOne.textContent = "";
 
   if (type.includes("upcoming")) {
     fetchUpcomingMovies(currentPage);
@@ -244,7 +244,7 @@ function sorted(type) {
       })
       .catch((err) => {
         console.error(err);
-        mainOne.innerHTML = `<p>Error loading sorted movies.</p>`;
+        mainOne.textContent = `<p>Error loading sorted movies.</p>`;
       });
   }
 }
@@ -257,7 +257,7 @@ function carsousel(trendWeek) {
       return res.json();
     })
     .then((data) => {
-      customCar.innerHTML = "";
+      customCar.textContent = "";
       const divCar = document.createElement("div");
       divCar.className = "carousel-inner";
 
@@ -314,7 +314,7 @@ function carsousel(trendWeek) {
         star.src =
           "https://toppng.com/uploads/thumbnail/red-star-logo-clear-background-11661162416op1uluj3tw.png";
 
-        h5.innerHTML =
+        h5.textContent =
           element.vote_count > 0
             ? " " +
               element.vote_average.toPrecision(2) +
@@ -324,7 +324,7 @@ function carsousel(trendWeek) {
 
         const para = document.createElement("p");
         para.className = "card-text chars-limit";
-        para.innerHTML = element.overview || "";
+        para.textContent = element.overview || "";
 
         divActive.appendChild(banner);
         divActive.appendChild(carOverlay);
@@ -341,7 +341,7 @@ function carsousel(trendWeek) {
     })
     .catch((err) => {
       console.error(err);
-      customCar.innerHTML = `<p>Error loading carousel.</p>`;
+      customCar.textContent = `<p>Error loading carousel.</p>`;
     });
 }
 
@@ -377,7 +377,7 @@ function cardlayout(element) {
 
   const title = document.createElement("h2");
   title.id = "card-t";
-  title.innerHTML = element.title || element.name;
+  title.textContent = element.title || element.name;
 
   const cardP = document.createElement("p");
   cardP.id = "card-p";
@@ -387,7 +387,7 @@ function cardlayout(element) {
   cardI.src =
     "https://toppng.com/uploads/thumbnail/red-star-logo-clear-background-11661162416op1uluj3tw.png";
 
-  cardP.innerHTML =
+  cardP.textContent =
     element.vote_count > 0
       ? " " + element.vote_average.toPrecision(2) + "/10 "
       : "No Rating yet";
